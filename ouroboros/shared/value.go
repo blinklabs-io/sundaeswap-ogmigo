@@ -1,6 +1,7 @@
 package shared
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/num"
@@ -8,7 +9,7 @@ import (
 
 type Value map[string]map[string]num.Int
 
-var ErrInsufficientFunds = fmt.Errorf("insufficient funds")
+var ErrInsufficientFunds = errors.New("insufficient funds")
 
 func Add(a Value, b Value) Value {
 	result := Value{}

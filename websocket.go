@@ -40,7 +40,7 @@ func (c *Client) query(ctx context.Context, payload interface{}, v interface{}) 
 		if conn != nil {
 			ch <- ctx.Err()
 			if v := atomic.AddInt64(&closed, 1); v == 1 {
-				conn.Close()
+				_ = conn.Close()
 			}
 		}
 	}()
@@ -51,7 +51,7 @@ func (c *Client) query(ctx context.Context, payload interface{}, v interface{}) 
 	}
 	defer func() {
 		if v := atomic.AddInt64(&closed, 1); v == 1 {
-			conn.Close()
+			_ = conn.Close()
 		} else {
 			err = <-ch
 		}

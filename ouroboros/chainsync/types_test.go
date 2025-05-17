@@ -58,6 +58,7 @@ func assertStructMatchesSchema(t *testing.T) filepath.WalkFunc {
 		if err != nil {
 			t.Fatalf("got %v; want nil", err)
 		}
+		//nolint:errcheck
 		defer f.Close()
 
 		decoder := json.NewDecoder(f)
@@ -90,6 +91,7 @@ func assertDynamoDBSerialize(t *testing.T) filepath.WalkFunc {
 			path, _ = filepath.Abs(path)
 			f, err := os.Open(path)
 			assert.Nil(t, err)
+			//nolint:errcheck
 			defer f.Close()
 
 			var want ResponsePraos

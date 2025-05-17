@@ -15,6 +15,7 @@
 package num
 
 import (
+	"errors"
 	"fmt"
 	"math/big"
 
@@ -118,7 +119,7 @@ func (i *Int) UnmarshalDynamoDBAttributeValue(item *dynamodb.AttributeValue) err
 		return nil
 	}
 	if item.N == nil {
-		return fmt.Errorf("unable to unmarshal invalid Int: N not set")
+		return errors.New("unable to unmarshal invalid Int: N not set")
 	}
 
 	s := aws.StringValue(item.N)

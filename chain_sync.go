@@ -26,10 +26,9 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
 	"github.com/gorilla/websocket"
 	"golang.org/x/sync/errgroup"
-
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
 )
 
 // ChainSync provides control over a given ChainSync connection
@@ -351,10 +350,11 @@ func getPoint(data ...[]byte) (chainsync.Point, bool) {
 		if err := json.Unmarshal(d, &response); err == nil {
 			if response.Method == chainsync.NextBlockMethod {
 				nbr := response.MustNextBlockResult()
-				if nbr.Direction == chainsync.RollForwardString {
+				switch nbr.Direction {
+				case chainsync.RollForwardString:
 					ps := nbr.Block.PointStruct()
 					return ps.Point(), true
-				} else if nbr.Direction == chainsync.RollBackwardString {
+				case chainsync.RollBackwardString:
 					return *nbr.Point, true
 				}
 			}

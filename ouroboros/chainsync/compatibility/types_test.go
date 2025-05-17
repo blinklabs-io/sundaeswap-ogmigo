@@ -674,6 +674,7 @@ func Test_GetDatumBytes(t *testing.T) {
 
 func Test_UnmarshalTxWithNilMetadata(t *testing.T) {
 	data, err := os.ReadFile("test_data/TxWithNilMetadata.json")
+	assert.Nil(t, err)
 	var tx CompatibleTx
 	err = json.Unmarshal(data, &tx)
 	assert.Nil(t, err)

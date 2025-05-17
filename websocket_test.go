@@ -22,6 +22,7 @@ func timeout(delay time.Duration) http.HandlerFunc {
 			log.Print("upgrade:", err)
 			return
 		}
+		//nolint:errcheck
 		defer c.Close()
 
 		for {
@@ -51,6 +52,7 @@ func TestClient_query(t *testing.T) {
 	if err != nil {
 		t.Fatalf("got %v; want nil", err)
 	}
+	//nolint:errcheck
 	defer listener.Close()
 
 	go func() {

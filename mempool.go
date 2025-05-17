@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"io"
 	"net"
-	//"os"
-	//"sort"
 	"sync/atomic"
 	"time"
 
@@ -180,7 +178,7 @@ func (c *Client) doMonitorMempool(ctx context.Context, callback MonitorMempoolFu
 						return fmt.Errorf("failed to write nextTransaction: %w", err)
 					}
 				default:
-					return fmt.Errorf("invalid channel state")
+					return errors.New("invalid channel state")
 				}
 			}
 		}

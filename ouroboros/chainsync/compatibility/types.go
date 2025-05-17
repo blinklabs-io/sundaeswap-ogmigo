@@ -17,12 +17,12 @@ package compatibility
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 
 	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
 	v5 "github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/v5"
 	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
-
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
@@ -238,7 +238,7 @@ func (r CompatibleResponsePraos) MustFindIntersectResult() CompatibleResultFindI
 	if ok && u != nil {
 		return CompatibleResultFindIntersection(*u)
 	}
-	panic(fmt.Errorf("must method called on incompatible type"))
+	panic(errors.New("must method called on incompatible type"))
 }
 
 func (r CompatibleResponsePraos) MustNextBlockResult() CompatibleResultNextBlock {
@@ -253,7 +253,7 @@ func (r CompatibleResponsePraos) MustNextBlockResult() CompatibleResultNextBlock
 	if ok && u != nil {
 		return CompatibleResultNextBlock(*u)
 	}
-	panic(fmt.Errorf("must method called on incompatible type"))
+	panic(errors.New("must method called on incompatible type"))
 }
 
 type CompatibleValue shared.Value
@@ -346,7 +346,7 @@ func (c CompatibleResult) MarshalJSON() ([]byte, error) {
 	if c.FindIntersection != nil {
 		return json.Marshal(c.FindIntersection)
 	}
-	return nil, fmt.Errorf("unable to marshal empty result")
+	return nil, errors.New("unable to marshal empty result")
 }
 
 func (c *CompatibleResult) UnmarshalDynamoDBAttributeValue(item *dynamodb.AttributeValue) error {
@@ -373,7 +373,7 @@ func (c CompatibleResult) MarshalDynamoDBAttributeValue(item *dynamodb.Attribute
 	if c.FindIntersection != nil {
 		return c.FindIntersection.MarshalDynamoDBAttributeValue(item)
 	}
-	return fmt.Errorf("unable to marshal empty result")
+	return errors.New("unable to marshal empty result")
 }
 
 // v5 and v6 transactions universally.

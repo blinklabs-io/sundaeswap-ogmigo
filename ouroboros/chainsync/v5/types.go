@@ -19,6 +19,7 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"sort"
 	"strconv"
@@ -30,9 +31,7 @@ import (
 	"github.com/fxamacker/cbor/v2"
 )
 
-var (
-	bNil = []byte("nil")
-)
+var bNil = []byte("nil")
 
 // Use V5 materials only for JSON backwards compatibility.
 type TxV5 struct {
@@ -79,7 +78,7 @@ func (t TxV5) ConvertToV6() chainsync.Tx {
 	for _, sig := range t.Witness.Bootstrap {
 		var s chainsync.Signature
 		// NOTE: error handling is ignored here, we should thread through the error
-		json.Unmarshal(sig, &s)
+		_ = json.Unmarshal(sig, &s)
 
 		if decodedSig, error := base64.StdEncoding.DecodeString(s.Signature); error == nil {
 			s.Signature = hex.EncodeToString(decodedSig)
@@ -354,6 +353,7 @@ func (v ValidityIntervalV5) ConvertToV6() chainsync.ValidityInterval {
 		InvalidAfter:  v.InvalidHereafter,
 	}
 }
+
 func ValidityIntervalFromV6(v chainsync.ValidityInterval) ValidityIntervalV5 {
 	return ValidityIntervalV5{
 		InvalidBefore:    v.InvalidBefore,
@@ -568,7 +568,7 @@ func (p PointV5) MarshalCBOR() ([]byte, error) {
 		}
 		return cbor.Marshal(v)
 	default:
-		return nil, fmt.Errorf("unable to unmarshal Point: unknown type")
+		return nil, errors.New("unable to unmarshal Point: unknown type")
 	}
 }
 
@@ -579,7 +579,7 @@ func (p PointV5) MarshalJSON() ([]byte, error) {
 	case chainsync.PointTypeStruct:
 		return json.Marshal(p.pointStruct)
 	default:
-		return nil, fmt.Errorf("unable to unmarshal Point: unknown type")
+		return nil, errors.New("unable to unmarshal Point: unknown type")
 	}
 }
 
@@ -608,8 +608,8 @@ func (p *PointV5) UnmarshalCBOR(data []byte) error {
 }
 
 func (p *PointV5) UnmarshalJSON(data []byte) error {
-	switch {
-	case data[0] == '"':
+	switch data[0] {
+	case '"':
 		var s string
 		if err := json.Unmarshal(data, &s); err != nil {
 			return fmt.Errorf("failed to unmarshal Point, %v: %w", string(data), err)
@@ -657,7 +657,6 @@ func (r ResultFindIntersectionV5) ConvertToV6() chainsync.ResultFindIntersection
 		rfi.Tip = &tip
 		rfi.Error = nil
 		rfi.ID = nil
-
 	} else if r.IntersectionNotFound != nil {
 		// Emulate the v6 IntersectionNotFound error as best as possible.
 		tip := r.IntersectionNotFound.Tip.ConvertToV6()
@@ -744,7 +743,7 @@ func (b RollForwardBlockV5) GetNonByronBlock() *BlockV5 {
 func (b RollForwardBlockV5) ConvertToV6() (chainsync.Block, error) {
 	nbb := b.GetNonByronBlock()
 	if nbb == nil {
-		return chainsync.Block{}, fmt.Errorf("byron blocks not supported")
+		return chainsync.Block{}, errors.New("byron blocks not supported")
 	}
 	var txArray []chainsync.Tx
 	for _, t := range nbb.Body {
@@ -821,7 +820,7 @@ func (b RollForwardBlockV5) ConvertToV6() (chainsync.Block, error) {
 
 func BlockFromV6(b chainsync.Block) (RollForwardBlockV5, error) {
 	if b.Era == "byron" {
-		return RollForwardBlockV5{}, fmt.Errorf("byron blocks not supported")
+		return RollForwardBlockV5{}, errors.New("byron blocks not supported")
 	}
 
 	var txArray []TxV5
@@ -897,7 +896,6 @@ func BlockFromV6(b chainsync.Block) (RollForwardBlockV5, error) {
 	default:
 		return RollForwardBlockV5{}, fmt.Errorf("unknown era: %v", b.Era)
 	}
-
 }
 
 type RollForwardV5 struct {
@@ -917,6 +915,7 @@ func (r ResultNextBlockV5) ConvertToV6() chainsync.ResultNextBlockPraos {
 		block, err := r.RollForward.Block.ConvertToV6()
 		if err != nil {
 			// NOTE: we currently don't support byron blocks, please reach out if you need this!
+			return rnb
 		}
 		rnb.Direction = chainsync.RollForwardString
 		rnb.Tip = &tip
@@ -934,7 +933,8 @@ func (r ResultNextBlockV5) ConvertToV6() chainsync.ResultNextBlockPraos {
 
 func ResultNextBlockFromV6(rnb chainsync.ResultNextBlockPraos) ResultNextBlockV5 {
 	var r ResultNextBlockV5
-	if rnb.Direction == chainsync.RollForwardString {
+	switch rnb.Direction {
+	case chainsync.RollForwardString:
 		tip := PointStructV5{
 			Hash: rnb.Tip.ID,
 			Slot: rnb.Tip.Slot,
@@ -945,12 +945,13 @@ func ResultNextBlockFromV6(rnb chainsync.ResultNextBlockPraos) ResultNextBlockV5
 		block, err := BlockFromV6(*rnb.Block)
 		if err != nil {
 			// NOTE: we don't currently support byron
+			return r
 		}
 		r.RollForward = &RollForwardV5{
 			Block: block,
 			Tip:   tip,
 		}
-	} else if rnb.Direction == chainsync.RollBackwardString {
+	case chainsync.RollBackwardString:
 		tip := PointStructV5{
 			Hash: rnb.Tip.ID,
 			Slot: rnb.Tip.Slot,
@@ -1014,6 +1015,7 @@ func (r ResponseV5) ConvertToV6() chainsync.ResponsePraos {
 		block, err := r.Result.RollForward.Block.ConvertToV6()
 		if err != nil {
 			// NOTE: we currently don't support byron, reach out to us if you need this supported!
+			return c
 		}
 
 		t := r.Result.RollForward.Tip.ConvertToV6()
@@ -1047,7 +1049,8 @@ func (r ResponseV5) ConvertToV6() chainsync.ResponsePraos {
 // I don't really understand the nest of types here...
 func ResponseFromV6(r chainsync.ResponsePraos) ResponseV5 {
 	var result *ResultV5
-	if r.Method == chainsync.FindIntersectionMethod {
+	switch r.Method {
+	case chainsync.FindIntersectionMethod:
 		rfi := ResultFindIntersectionFromV6(r.MustFindIntersectResult())
 		if rfi.IntersectionFound != nil {
 			result = &ResultV5{
@@ -1058,7 +1061,7 @@ func ResponseFromV6(r chainsync.ResponsePraos) ResponseV5 {
 				IntersectionNotFound: rfi.IntersectionNotFound,
 			}
 		}
-	} else if r.Method == chainsync.NextBlockMethod {
+	case chainsync.NextBlockMethod:
 		rnb := ResultNextBlockFromV6(r.MustNextBlockResult())
 		if rnb.RollForward != nil {
 			result = &ResultV5{

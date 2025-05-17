@@ -76,8 +76,7 @@ func (d defaultLogger) With(kvs ...KeyValue) Logger {
 // NopLogger logs nothing
 var NopLogger = nopLogger{}
 
-type nopLogger struct {
-}
+type nopLogger struct{}
 
 func (n nopLogger) Debug(string, ...KeyValue) {}
 func (n nopLogger) Info(string, ...KeyValue)  {}

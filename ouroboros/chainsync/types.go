@@ -19,22 +19,20 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"math/big"
 	"strconv"
 	"strings"
 
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/fxamacker/cbor/v2"
-
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
 )
 
-var (
-	bNil = []byte("nil")
-)
+var bNil = []byte("nil")
 
 // All blocks except Byron-era blocks.
 type Block struct {
@@ -185,7 +183,7 @@ func (p Point) MarshalDynamoDBAttributeValue(item *dynamodb.AttributeValue) erro
 		}
 		item.M = m
 	default:
-		return fmt.Errorf("unable to unmarshal Point: unknown type")
+		return errors.New("unable to unmarshal Point: unknown type")
 	}
 	return nil
 }
@@ -199,7 +197,7 @@ func (p Point) MarshalCBOR() ([]byte, error) {
 		}
 		return cbor.Marshal(v)
 	default:
-		return nil, fmt.Errorf("unable to unmarshal Point: unknown type")
+		return nil, errors.New("unable to unmarshal Point: unknown type")
 	}
 }
 
@@ -210,7 +208,7 @@ func (p Point) MarshalJSON() ([]byte, error) {
 	case PointTypeStruct:
 		return json.Marshal(p.pointStruct)
 	default:
-		return nil, fmt.Errorf("unable to unmarshal Point: unknown type")
+		return nil, errors.New("unable to unmarshal Point: unknown type")
 	}
 }
 
@@ -261,8 +259,8 @@ func (p *Point) UnmarshalDynamoDBAttributeValue(item *dynamodb.AttributeValue) e
 }
 
 func (p *Point) UnmarshalJSON(data []byte) error {
-	switch {
-	case data[0] == '"':
+	switch data[0] {
+	case '"':
 		var s string
 		if err := json.Unmarshal(data, &s); err != nil {
 			return fmt.Errorf("failed to unmarshal Point, %v: %w", string(data), err)
@@ -351,13 +349,17 @@ type ResponsePraos struct {
 	ID      json.RawMessage `json:"id,omitempty"      dynamodbav:"id,omitempty"`
 }
 
-const FindIntersectionMethod = "findIntersection"
-const NextBlockMethod = "nextBlock"
-const FindIntersectMethod = "FindIntersect"
-const RequestNextMethod = "RequestNext"
+const (
+	FindIntersectionMethod = "findIntersection"
+	NextBlockMethod        = "nextBlock"
+	FindIntersectMethod    = "FindIntersect"
+	RequestNextMethod      = "RequestNext"
+)
 
-const RollForwardString = "forward"
-const RollBackwardString = "backward"
+const (
+	RollForwardString  = "forward"
+	RollBackwardString = "backward"
+)
 
 func (r *ResponsePraos) UnmarshalJSON(b []byte) error {
 	var m struct {
@@ -418,7 +420,7 @@ func (r ResponsePraos) MustFindIntersectResult() ResultFindIntersectionPraos {
 	if ok && u != nil {
 		return *u
 	}
-	panic(fmt.Errorf("must method used on incompatible type"))
+	panic(errors.New("must method used on incompatible type"))
 }
 
 func (r ResponsePraos) MustNextBlockResult() ResultNextBlockPraos {
@@ -433,7 +435,7 @@ func (r ResponsePraos) MustNextBlockResult() ResultNextBlockPraos {
 	if ok && u != nil {
 		return *u
 	}
-	panic(fmt.Errorf("must method used on incompatible type"))
+	panic(errors.New("must method used on incompatible type"))
 }
 
 type Signature struct {
@@ -622,7 +624,7 @@ func (o *OgmiosAuxiliaryDataV6) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	if s.Hash == "" {
-		return fmt.Errorf("OgmiosAuxiliaryData: UnmarshalJSON: Hash is empty")
+		return errors.New("OgmiosAuxiliaryData: UnmarshalJSON: Hash is empty")
 	}
 	o.Hash = s.Hash
 	o.Labels = s.Labels
@@ -704,7 +706,7 @@ func (o *OgmiosMetadatum) UnmarshalJSON(data []byte) error {
 		o.MapField = *m.X
 		return nil
 	}
-	return fmt.Errorf("Can't unmarshal %s as OgmiosMetadatum", data)
+	return fmt.Errorf("cannot unmarshal %s as OgmiosMetadatum", data)
 }
 
 type OgmiosMetadatumMap struct {

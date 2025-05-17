@@ -38,11 +38,10 @@ func TestV5(t *testing.T) {
 		v5Conversion := TxFromV6(expectedV6)
 		v6Conversion := v5Conversion.ConvertToV6()
 
-		var bootstrapV5Sigs []chainsync.Signature
 		for _, x := range v5Conversion.Witness.Bootstrap {
 			var sig chainsync.Signature
-			json.Unmarshal(x, &sig)
-			bootstrapV5Sigs = append(bootstrapV5Sigs, sig)
+			err = json.Unmarshal(x, &sig)
+			assert.Nil(t, err)
 		}
 
 		network := "\"mainnet\""
