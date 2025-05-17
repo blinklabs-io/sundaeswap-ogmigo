@@ -1,15 +1,16 @@
-module github.com/savaki/ogmigo/store/badgerstore
+module github.com/SundaeSwap-finance/ogmigo/store/badgerstore
 
 go 1.23.0
 
 toolchain go1.23.7
 
 require (
-	github.com/SundaeSwap-finance/ogmigo v0.0.0-00010101000000-000000000000
+	github.com/SundaeSwap-finance/ogmigo/v6 v6.0.0
 	github.com/dgraph-io/badger/v3 v3.2103.2
 )
 
 require (
+	github.com/SundaeSwap-finance/ogmigo v0.0.0-00010101000000-000000000000 // indirect
 	github.com/aws/aws-sdk-go v1.44.197 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.1 // indirect

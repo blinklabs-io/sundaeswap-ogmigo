@@ -29,7 +29,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/fxamacker/cbor/v2"
 
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
 )
 
 var (
@@ -605,17 +605,17 @@ type ValidityInterval struct {
 	InvalidAfter  uint64 `json:"invalidAfter,omitempty"  dynamodbav:"invalidAfter,omitempty"`
 }
 
-type OgmiosAuxiliaryData struct {
+type OgmiosAuxiliaryDataV6 struct {
 	Hash   string
-	Labels *OgmiosAuxiliaryDataLabels
+	Labels *OgmiosAuxiliaryDataLabelsV6
 }
 
-type OgmiosAuxiliaryDataLabels map[int]OgmiosMetadatumRecord
+type OgmiosAuxiliaryDataLabelsV6 map[int]OgmiosMetadatumRecordV6
 
-func (o *OgmiosAuxiliaryData) UnmarshalJSON(data []byte) error {
+func (o *OgmiosAuxiliaryDataV6) UnmarshalJSON(data []byte) error {
 	var s struct {
 		Hash   string
-		Labels *OgmiosAuxiliaryDataLabels
+		Labels *OgmiosAuxiliaryDataLabelsV6
 	}
 	err := json.Unmarshal(data, &s)
 	if err != nil {
@@ -629,7 +629,7 @@ func (o *OgmiosAuxiliaryData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-type OgmiosMetadatumRecord struct {
+type OgmiosMetadatumRecordV6 struct {
 	Cbor *string          `json:"cbor"`
 	Json *OgmiosMetadatum `json:"json"`
 }
@@ -720,7 +720,15 @@ func GetMetadataDatums(datums map[string][]byte) ([][]byte, error) {
 	return datumBytes, nil
 }
 
-func GetMetadataDatumMap(txMetadata json.RawMessage, metadataDatumKey int) (map[string][]byte, error) {
+func GetMetadataDatumsV6(txMetadata json.RawMessage, metadataDatumKey int) ([][]byte, error) {
+	datums, err := GetMetadataDatumMapV6(txMetadata, metadataDatumKey)
+	if err != nil {
+		return nil, err
+	}
+	return GetMetadataDatums(datums)
+}
+
+func GetMetadataDatumMapV6(txMetadata json.RawMessage, metadataDatumKey int) (map[string][]byte, error) {
 	// Ogmios will sometimes set the Metadata field to "null" when there's not
 	// any actual metadata. This can lead to unintended errors. If we encounter
 	// this case, just return an empty map.
@@ -729,7 +737,7 @@ func GetMetadataDatumMap(txMetadata json.RawMessage, metadataDatumKey int) (map[
 		return dummyMap, nil
 	}
 
-	var auxData OgmiosAuxiliaryData
+	var auxData OgmiosAuxiliaryDataV6
 	err := json.Unmarshal(txMetadata, &auxData)
 	if err != nil {
 		return nil, err

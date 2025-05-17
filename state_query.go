@@ -19,9 +19,10 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/chainsync"
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/shared"
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/statequery"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
+	v5 "github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/v5"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/statequery"
 )
 
 func (c *Client) ChainTip(ctx context.Context) (chainsync.Point, error) {
@@ -32,6 +33,19 @@ func (c *Client) ChainTip(ctx context.Context) (chainsync.Point, error) {
 
 	if err := c.query(ctx, payload, &content); err != nil {
 		return chainsync.Point{}, err
+	}
+
+	return content.Result, nil
+}
+
+func (c *Client) ChainTipV5(ctx context.Context) (v5.PointV5, error) {
+	var (
+		payload = makePayloadV5("Query", Map{"query": "ledgerTip"})
+		content struct{ Result v5.PointV5 }
+	)
+
+	if err := c.query(ctx, payload, &content); err != nil {
+		return v5.PointV5{}, err
 	}
 
 	return content.Result, nil
@@ -53,6 +67,19 @@ func (c *Client) CurrentEpoch(ctx context.Context) (uint64, error) {
 func (c *Client) CurrentProtocolParameters(ctx context.Context) (json.RawMessage, error) {
 	var (
 		payload = makePayload("queryLedgerState/protocolParameters", Map{}, nil)
+		content struct{ Result json.RawMessage }
+	)
+
+	if err := c.query(ctx, payload, &content); err != nil {
+		return nil, err
+	}
+
+	return content.Result, nil
+}
+
+func (c *Client) CurrentProtocolParametersV5(ctx context.Context) (json.RawMessage, error) {
+	var (
+		payload = makePayloadV5("Query", Map{"query": "currentProtocolParameters"})
 		content struct{ Result json.RawMessage }
 	)
 

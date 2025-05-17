@@ -6,9 +6,9 @@ toolchain go1.23.7
 
 replace github.com/SundaeSwap-finance/ogmigo/store/badgerstore => ../../store/badgerstore
 
-replace github.com/SundaeSwap-finance/ogmigo => ../..
+replace github.com/SundaeSwap-finance/ogmigo/v6 => ../..
 
-require github.com/SundaeSwap-finance/ogmigo v0.0.0-00010101000000-000000000000
+require github.com/SundaeSwap-finance/ogmigo/v6 v6.0.0-00010101000000-000000000000
 
 require (
 	github.com/aws/aws-sdk-go v1.44.197 // indirect

@@ -1,0 +1,262 @@
+{
+    "id": "58924fded958dda8a7ac6a120f00eea7e7374ff8ce54751e4ce9db689604b90c",
+    "spends": "collaterals",
+    "inputs": [
+        {
+            "transaction": {
+                "id": "8a5ccae33afd6377bc25bb6205abbc8c681c6ac433e2a660a984b0f0be278ed5"
+            },
+            "index": 2
+        },
+        {
+            "transaction": {
+                "id": "e765d3670fb705c78ec15438d93ab42281c97a56ded969f8a8db0d079060c3f7"
+            },
+            "index": 2
+        }
+    ],
+    "outputs": [
+        {
+            "address": "addr1gx2fe5rhglqrcgf2cpn0fyuvh2cy97ax0lz3v70qv2jmgkczqqqs0pwy02",
+            "value": {
+                "ada": {
+                    "lovelace": 5471871707173873214
+                },
+                "709fc5abc5df4cfee75360cfa9f3ee7d36d6cb216a0ba4daddb16366": {
+                    "35": 1
+                }
+            },
+            "datumHash": "3c7a5f2e2f52c4756b9b359b63b316c77e9113f635c8690bb1b506b7c9b890f2"
+        },
+        {
+            "address": "addr_test1qr0y0q76tdu63exxxfhrcq00u3vpz3jfe0dnevcy5e6tlx23r7kvyuvvj8njqwhrrsv4jsw73uv0apx966rksaa66hzqpu75h5",
+            "value": {
+                "ada": {
+                    "lovelace": 2359388962328459812
+                },
+                "2db8410d969b6ad6b6969703c77ebf6c44061aa51c5d6ceba46557e2": {
+                    "f3fae0095e78ccade17ffa547dd9cd839ebe65": 1
+                }
+            },
+            "datumHash": "4ad8cd5be6986e6c3eb4d3f942c75e68a8e0be40e405c240781964698fca137c"
+        },
+        {
+            "address": "addr1q8qgshfmdt5vkx2msf48qtvg3pgurrgxau482m2yyw0c2483lhxjm7kxtt28lhsfkd9mlwtlj3z92nm7zs3m30w7h4hqarsdu2",
+            "value": {
+                "ada": {
+                    "lovelace": 6998929950975338793
+                },
+                "467f58932b54910584a0e8ea25a225e06a14530b2e96e938c53a3f22": {
+                    "34": 1
+                }
+            },
+            "datumHash": "0f768d10304e2488f0cf50cd5c8ac25133291b4bf36db311e7ec19bd7ef9eb65"
+        }
+    ],
+    "certificates": [
+        {
+            "type": "stakeDelegation",
+            "credential": "c9022a4fb911ca00cd9b4e5bd23abf2995b6ecda8e205a73f952b87b",
+            "stakePool": {
+                "id": "pool1a82sssa9rt5hft2dua4kxcy8ay53usswaktzuvgp8kpwkgsxqa6"
+            }
+        },
+        {
+            "type": "genesisDelegation",
+            "delegate": {
+                "id": "fdefd8e3beb32cd86c84959f8e156a32a1ba3876ebdd868ad3eefb7c",
+                "vrfVerificationKeyHash": "15f1292a444fe5aa73f95d9d75e4a1909d6aa05fca22a21174a330232ef41a29"
+            },
+            "issuer": {
+                "id": "50699ad21903e2cc251fdccb6641b78df70fb5972862a4597a1cb6b4"
+            }
+        }
+    ],
+    "withdrawals": {
+        "stake_test17qrerkduc7v5vt5mfz4j3vhv667q9lxv4aldhqq6v7cml0gwacue2": {
+            "ada": {
+                "lovelace": 433263
+            }
+        },
+        "stake178cxrn5h9fqftntssdrjh0kwd6622vlqu3h8r7tl8gnzrhsnvljkg": {
+            "ada": {
+                "lovelace": 224375
+            }
+        }
+    },
+    "mint": {
+        "39c7e3a4c1dc6032dc0ea4d471195037c85ed90b31926954cd5446c6": {
+            "1e7a8d28bb1c1988ff842ff101e2e5": 3697388719172430741
+        }
+    },
+    "requiredExtraSignatories": [
+        "7f1906cea1ee4e2b5d539dae4b81f4d146455bcd3ddcb667d6fe260f",
+        "fa5fe33872d2677309b6045af7b2068b5250236ca618f9c8f8af3b05",
+        "fa7ca0d5666b278a64acf8b65a5cd6d535c77e22f638a97c1285ba29"
+    ],
+    "requiredExtraScripts": [
+        "15aa4823a4774744d4fba0a5ff5590d44b5d6e0265bf752168212898",
+        "7f1a51455c864f5bce3be29783f3e448493108bf9b6f04e4944d7f8a"
+    ],
+    "network": "mainnet",
+    "scriptIntegrityHash": "89fc262c4561ccabd5cfb8a9e30ba3c928b2910829b86096ba771ca387aa1d49",
+    "fee": {
+        "ada": {
+            "lovelace": 464857
+        }
+    },
+    "validityInterval": {
+        "invalidBefore": 4,
+        "invalidAfter": 2
+    },
+    "proposals": [
+        {
+            "action": {
+                "type": "treasuryTransfer",
+                "source": "treasury",
+                "target": "reserves",
+                "value": {
+                    "ada": {
+                        "lovelace": 142671
+                    }
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "hash": "510a2008d322fb820b6055077f0a82eb3eecddda0a0b63217fe3efbbd1780ea4",
+        "labels": {
+            "2": {
+                "cbor": "40"
+            }
+        }
+    },
+    "signatories": [
+        {
+            "key": "d88f6028cc3d6d335115de3737bc2fe80a9a57a21a2c7c228ebc33b222e0897b",
+            "signature": "feb447eca6b819f88b4b6aac81a97200121dd4451bfccb65f73d31de296b5402eead42848808633ad1d4afbfad3a2f1967ce65516adca5cd373673f758a9c096"
+        },
+        {
+            "key": "400019217786c3630fb121c455065b879055aa0ced5076a24abe8d6c837e0318",
+            "signature": "2056f5953abe8af858433e9f0283d9417b8681e6de8797c8b0cf2ba1c2b4de66ecb3cc9a510a5ff3bd50b28d9a0186b18c369d0c7ccc7d43d10890e94f257142"
+        },
+        {
+            "key": "17afa786c425133196e10db3d4c68c3c14d6e4c81df7cbdb2cf772f544f009b5",
+            "signature": "517a93145cec2753ab21f8fe2a16eeaee0f8fd143b2ec124e7ff886c75198966c70407466b1753c159db9960d9a53b104f3501eca2f8d5309f3556beff394787"
+        }
+    ],
+    "scripts": {
+        "15aa4823a4774744d4fba0a5ff5590d44b5d6e0265bf752168212898": {
+            "language": "native",
+            "json": {
+                "clause": "some",
+                "atLeast": 0,
+                "from": [
+                    {
+                        "clause": "after",
+                        "slot": 5
+                    },
+                    {
+                        "clause": "any",
+                        "from": [
+                            {
+                                "clause": "any",
+                                "from": [
+                                    {
+                                        "clause": "signature",
+                                        "from": "0d94e174732ef9aae73f395ab44507bfa983d65023c11a951f0c32e4"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "4acf2773917c7b547c576a7ff110d2ba5733c1f1ca9cdc659aea3a56"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "b16b56f5ec064be6ac3cab6035efae86b366cc3dc4a0d571603d70e5"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "clause": "all",
+                        "from": [
+                            {
+                                "clause": "any",
+                                "from": [
+                                    {
+                                        "clause": "signature",
+                                        "from": "b16b56f5ec064be6ac3cab6035efae86b366cc3dc4a0d571603d70e5"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "b5ae663aaea8e500157bdf4baafd6f5ba0ce5759f7cd4101fc132f54"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "4acf2773917c7b547c576a7ff110d2ba5733c1f1ca9cdc659aea3a56"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "b16b56f5ec064be6ac3cab6035efae86b366cc3dc4a0d571603d70e5"
+                                    }
+                                ]
+                            },
+                            {
+                                "clause": "all",
+                                "from": [
+                                    {
+                                        "clause": "signature",
+                                        "from": "4acf2773917c7b547c576a7ff110d2ba5733c1f1ca9cdc659aea3a56"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "7f1a51455c864f5bce3be29783f3e448493108bf9b6f04e4944d7f8a": {
+            "language": "native",
+            "json": {
+                "clause": "all",
+                "from": [
+                    {
+                        "clause": "some",
+                        "atLeast": 0,
+                        "from": [
+                            {
+                                "clause": "all",
+                                "from": [
+                                    {
+                                        "clause": "signature",
+                                        "from": "65fc709a5e019b8aba76f6977c1c8770e4b36fa76f434efc588747b7"
+                                    },
+                                    {
+                                        "clause": "signature",
+                                        "from": "a646474b8f5431261506b6c273d307c7569a4eb6c96b42dd4a29520a"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "clause": "before",
+                        "slot": 8
+                    },
+                    {
+                        "clause": "before",
+                        "slot": 0
+                    }
+                ]
+            }
+        },
+        "d441227553a0f1a965fee7d60a0f724b368dd1bddbc208730fccebcf": {
+            "language": "native",
+            "json": {
+                "clause": "all",
+                "from": []
+            }
+        }
+    }
+}

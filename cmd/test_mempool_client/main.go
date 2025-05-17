@@ -9,8 +9,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/SundaeSwap-finance/ogmigo"
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v6"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
 )
 
 func main() {

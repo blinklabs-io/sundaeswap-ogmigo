@@ -9,24 +9,25 @@ import (
 	"os"
 	"time"
 
-	"github.com/SundaeSwap-finance/ogmigo"
-	"github.com/SundaeSwap-finance/ogmigo/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v6"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/compatibility"
 )
 
 func main() {
 	var callback ogmigo.ChainSyncFunc = func(ctx context.Context, data []byte) error {
 
 		// Quick-and-dirty way to distinguish b/w 2 different responses.
-		var response chainsync.ResponsePraos
+		var response compatibility.CompatibleResponsePraos
 		if err := json.Unmarshal(data, &response); err != nil {
 			fmt.Printf("Failed Unmarshal: %v\n", err)
 			return nil
 		}
 
 		switch response.Method {
-		case chainsync.FindIntersectionMethod:
+		case chainsync.FindIntersectionMethod, chainsync.FindIntersectMethod:
 			fmt.Printf("CompatibleResultFindIntersection - %v\n", response.Result)
-		case chainsync.NextBlockMethod:
+		case chainsync.NextBlockMethod, chainsync.RequestNextMethod:
 			fmt.Printf("CompatibleResultNextBlock - %v\n", response.Result)
 		default:
 			fmt.Printf("Unsupported method: %v\n", response.Method)
