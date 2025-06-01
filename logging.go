@@ -17,6 +17,7 @@ package ogmigo
 import (
 	"bytes"
 	"log"
+	"strings"
 )
 
 type KeyValue struct {
@@ -54,7 +55,10 @@ func (d defaultLogger) print(message string, kvs ...KeyValue) {
 		buf.WriteString(" ")
 		buf.WriteString(kv.Key)
 		buf.WriteString("=")
-		buf.WriteString(kv.Value)
+		// Sanitize the value to remove newline characters
+		sanitizedValue := strings.ReplaceAll(kv.Value, "\n", "")
+		sanitizedValue = strings.ReplaceAll(sanitizedValue, "\r", "")
+		buf.WriteString(sanitizedValue)
 	}
 	log.Println(buf)
 }
