@@ -131,6 +131,17 @@ func (c *Client) StartTime(ctx context.Context) (string, error) {
 	return content.Result, nil
 }
 
+func (c *Client) BlockHeight(ctx context.Context) (uint64, error) {
+	var (
+		payload = makePayload("queryNetwork/blockHeight", nil, nil)
+		content struct{ Result uint64 }
+	)
+	if err := c.query(ctx, payload, &content); err != nil {
+		return 0, err
+	}
+	return content.Result, nil
+}
+
 type EraHistory struct {
 	Summaries []EraSummary
 }

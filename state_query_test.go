@@ -142,6 +142,24 @@ func TestClient_EraStart(t *testing.T) {
 	_ = encoder.Encode(eraStart)
 }
 
+func TestClient_BlockHeight(t *testing.T) {
+	endpoint := os.Getenv("OGMIOS")
+	if endpoint == "" {
+		t.SkipNow()
+	}
+
+	ctx := context.Background()
+	client := New(WithEndpoint(endpoint), WithLogger(DefaultLogger))
+	height, err := client.BlockHeight(ctx)
+	if err != nil {
+		t.Fatalf("got %#v; want nil", err)
+	}
+
+	encoder := json.NewEncoder(os.Stdout)
+	encoder.SetIndent("", "  ")
+	_ = encoder.Encode(height)
+}
+
 func TestClient_UtxosByAddress(t *testing.T) {
 	endpoint := os.Getenv("OGMIOS")
 	if endpoint == "" {
