@@ -1,4 +1,4 @@
-module github.com/SundaeSwap-finance/ogmigo/logger/zerolog
+module github.com/SundaeSwap-finance/ogmigo/v6/logger/zerolog
 
 go 1.17
 
