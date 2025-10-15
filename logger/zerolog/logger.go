@@ -16,7 +16,11 @@ func Wrap(logger zerolog.Logger) ogmigo.Logger {
 	}
 }
 
-func (l Logger) log(event *zerolog.Event, message string, kvs ...ogmigo.KeyValue) {
+func (l Logger) log(
+	event *zerolog.Event,
+	message string,
+	kvs ...ogmigo.KeyValue,
+) {
 	for _, kv := range kvs {
 		event = event.Str(kv.Key, kv.Value)
 	}
