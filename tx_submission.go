@@ -20,6 +20,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"slices"
 	"sort"
 	"strings"
 
@@ -27,7 +28,7 @@ import (
 )
 
 type Response struct {
-	Transaction ResponseTx `json:"transaction,omitempty" dynamodbav:"transaction,omitempty"`
+	Transaction ResponseTx `json:"transaction" dynamodbav:"transaction,omitempty"`
 }
 
 type ResponseTx struct {
@@ -169,12 +170,7 @@ type SubmitTxErrorV5 struct {
 // HasErrorCode returns true if the error contains the provided code
 func (s SubmitTxErrorV5) HasErrorCode(errorCode string) bool {
 	errorCodes, _ := s.ErrorCodes()
-	for _, ec := range errorCodes {
-		if ec == errorCode {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(errorCodes, errorCode)
 }
 
 // ErrorCodes the list of errors codes
