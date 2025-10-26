@@ -3,6 +3,7 @@ package shared
 import (
 	"errors"
 	"fmt"
+	"maps"
 
 	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/num"
 )
@@ -190,9 +191,7 @@ func (v Value) AssetsExceptAda() Value {
 			continue
 		}
 		policies[policy] = map[string]num.Int{}
-		for token, quantity := range tokenMap {
-			policies[policy][token] = quantity
-		}
+		maps.Copy(policies[policy], tokenMap)
 	}
 	return policies
 }
