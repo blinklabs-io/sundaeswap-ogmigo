@@ -207,7 +207,7 @@ func (c *Client) doChainSync(
 
 	// prime the pump
 	ch := make(chan struct{}, 64)
-	for i := 0; i < c.options.pipeline; i++ {
+	for range c.options.pipeline {
 		select {
 		case ch <- struct{}{}:
 		default:
