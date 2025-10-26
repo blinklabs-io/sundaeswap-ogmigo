@@ -57,7 +57,7 @@ type ByronBlockIssuer struct {
 type ByronProtocol struct {
 	Version  ProtocolVersion
 	Id       uint64 // aka magic
-	Software map[string]interface{}
+	Software map[string]any
 	Update   json.RawMessage
 }
 

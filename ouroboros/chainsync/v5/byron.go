@@ -42,7 +42,7 @@ type ByronHeader struct {
 	ProtocolVersion chainsync.ProtocolVersion
 	Signature       json.RawMessage
 	Slot            uint64 `json:"slot,omitempty"`
-	SoftwareVersion map[string]interface{}
+	SoftwareVersion map[string]any
 }
 
 type ByronTxBody struct {

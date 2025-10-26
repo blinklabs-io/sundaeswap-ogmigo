@@ -15,7 +15,7 @@
 package ogmigo
 
 // Map provides a simple type alias
-type Map map[string]interface{}
+type Map map[string]any
 
 type circular struct {
 	index int
