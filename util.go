@@ -38,7 +38,7 @@ func (c *circular) add(data []byte) {
 }
 
 func (c *circular) list() (data [][]byte) {
-	for i := 0; i < len(c.data); i++ {
+	for i := range c.data {
 		offset := (c.index + i) % len(c.data)
 		if v := c.data[offset]; len(v) > 0 {
 			data = append(data, v)
