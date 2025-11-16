@@ -28,8 +28,8 @@ var fault = []byte(`jsonwsp/fault`)
 
 func (c *Client) query(
 	ctx context.Context,
-	payload interface{},
-	v interface{},
+	payload any,
+	v any,
 ) (err error) {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()

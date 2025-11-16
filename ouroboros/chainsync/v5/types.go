@@ -430,18 +430,18 @@ type BlockV5 struct {
 }
 
 type BlockHeaderV5 struct {
-	BlockHash       string                 `json:"blockHash,omitempty"       dynamodbav:"blockHash,omitempty"`
-	BlockHeight     uint64                 `json:"blockHeight,omitempty"     dynamodbav:"blockHeight,omitempty"`
-	BlockSize       uint64                 `json:"blockSize,omitempty"       dynamodbav:"blockSize,omitempty"`
-	IssuerVK        string                 `json:"issuerVK,omitempty"        dynamodbav:"issuerVK,omitempty"`
-	IssuerVrf       string                 `json:"issuerVrf,omitempty"       dynamodbav:"issuerVrf,omitempty"`
-	LeaderValue     map[string][]byte      `json:"leaderValue,omitempty"     dynamodbav:"leaderValue,omitempty"`
-	Nonce           map[string]string      `json:"nonce,omitempty"           dynamodbav:"nonce,omitempty"`
-	OpCert          map[string]interface{} `json:"opCert,omitempty"          dynamodbav:"opCert,omitempty"`
-	PrevHash        string                 `json:"prevHash,omitempty"        dynamodbav:"prevHash,omitempty"`
-	ProtocolVersion map[string]int         `json:"protocolVersion,omitempty" dynamodbav:"protocolVersion,omitempty"`
-	Signature       string                 `json:"signature,omitempty"       dynamodbav:"signature,omitempty"`
-	Slot            uint64                 `json:"slot,omitempty"            dynamodbav:"slot,omitempty"`
+	BlockHash       string            `json:"blockHash,omitempty"       dynamodbav:"blockHash,omitempty"`
+	BlockHeight     uint64            `json:"blockHeight,omitempty"     dynamodbav:"blockHeight,omitempty"`
+	BlockSize       uint64            `json:"blockSize,omitempty"       dynamodbav:"blockSize,omitempty"`
+	IssuerVK        string            `json:"issuerVK,omitempty"        dynamodbav:"issuerVK,omitempty"`
+	IssuerVrf       string            `json:"issuerVrf,omitempty"       dynamodbav:"issuerVrf,omitempty"`
+	LeaderValue     map[string][]byte `json:"leaderValue,omitempty"     dynamodbav:"leaderValue,omitempty"`
+	Nonce           map[string]string `json:"nonce,omitempty"           dynamodbav:"nonce,omitempty"`
+	OpCert          map[string]any    `json:"opCert,omitempty"          dynamodbav:"opCert,omitempty"`
+	PrevHash        string            `json:"prevHash,omitempty"        dynamodbav:"prevHash,omitempty"`
+	ProtocolVersion map[string]int    `json:"protocolVersion,omitempty" dynamodbav:"protocolVersion,omitempty"`
+	Signature       string            `json:"signature,omitempty"       dynamodbav:"signature,omitempty"`
+	Slot            uint64            `json:"slot,omitempty"            dynamodbav:"slot,omitempty"`
 }
 
 // Assume no Byron support.
@@ -870,7 +870,7 @@ func BlockFromV6(b chainsync.Block) (RollForwardBlockV5, error) {
 		b.Issuer.OperationalCertificate.Kes.VerificationKey,
 	)
 	hotVk := base64.StdEncoding.EncodeToString(vkey)
-	opCert := map[string]interface{}{
+	opCert := map[string]any{
 		"hotVk":     hotVk,
 		"count":     b.Issuer.OperationalCertificate.Count,
 		"kesPeriod": b.Issuer.OperationalCertificate.Kes.Period,

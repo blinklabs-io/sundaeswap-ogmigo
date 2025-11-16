@@ -366,7 +366,7 @@ type ResultNextBlockPraos struct {
 type ResponsePraos struct {
 	JsonRpc string          `json:"jsonrpc,omitempty" dynamodbav:"jsonrpc,omitempty"`
 	Method  string          `json:"method,omitempty"  dynamodbav:"method,omitempty"`
-	Result  interface{}     `json:"result,omitempty"  dynamodbav:"result,omitempty"`
+	Result  any             `json:"result,omitempty"  dynamodbav:"result,omitempty"`
 	Error   *ResultError    `json:"error,omitempty"   dynamodbav:"error,omitempty"`
 	ID      json.RawMessage `json:"id,omitempty"      dynamodbav:"id,omitempty"`
 }
@@ -572,7 +572,7 @@ func (d *Datums) UnmarshalJSON(i []byte) error {
 		return nil
 	}
 
-	var raw map[string]interface{}
+	var raw map[string]any
 	err := json.Unmarshal(i, &raw)
 	if err != nil {
 		return fmt.Errorf("unable to unmarshal as raw map: %w", err)
@@ -609,7 +609,7 @@ func (d *Datums) UnmarshalDynamoDBAttributeValue(
 		return nil
 	}
 
-	var raw map[string]interface{}
+	var raw map[string]any
 	if err := dynamodbattribute.UnmarshalMap(item.M, &raw); err != nil {
 		return fmt.Errorf("failed to unmarshal map: %w", err)
 	}

@@ -28,7 +28,7 @@ type EvaluateResponse struct {
 	Version     string
 	ServiceName string `json:"servicename"`
 	MethodName  string `json:"methodname"`
-	Reflection  interface{}
+	Reflection  any
 	Result      json.RawMessage
 }
 
