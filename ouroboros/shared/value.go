@@ -170,7 +170,7 @@ func (v *Value) AddAsset(coins ...Coin) {
 		policy := coin.AssetId.PolicyID()
 		asset := coin.AssetId.AssetName()
 		if _, ok := (*v)[policy]; !ok {
-			(*v)[policy] = map[string]num.Int{}
+			(*v)[policy] = make(map[string]num.Int)
 		}
 		(*v)[policy][asset] = (*v)[policy][asset].Add(coin.Amount)
 	}
