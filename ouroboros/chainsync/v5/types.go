@@ -521,6 +521,9 @@ func PointFromV6(p chainsync.Point) *PointV5 {
 		}
 	} else {
 		ps, _ := p.PointStruct()
+		if ps == nil {
+			return nil
+		}
 		bn := uint64(0)
 		if ps.Height != nil {
 			bn = *ps.Height

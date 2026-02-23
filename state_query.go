@@ -289,6 +289,9 @@ func (c *Client) GetDelegation(
 	}
 
 	decoded_value, _ := bech32.ConvertBits(data, 5, 8, false)
+	if decoded_value == nil {
+		return Delegation{}, fmt.Errorf("failed to convert bits for reward address")
+	}
 
 	rewardAddressVfk := hex.EncodeToString(decoded_value[1:])
 

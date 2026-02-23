@@ -158,6 +158,9 @@ func Equal(a, b Value) bool {
 }
 
 func (v *Value) AddAsset(coins ...Coin) {
+	if v == nil {
+		return
+	}
 	// As a courtesy, initialize Value if necessary.
 	if *v == nil {
 		*v = Value{}

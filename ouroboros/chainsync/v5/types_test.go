@@ -185,6 +185,9 @@ func Test_GetDatumBytesV5(t *testing.T) {
 	assert.Nil(t, err)
 	datumBytes, err := GetMetadataDatumsV5(meta, TestDatumKey)
 	assert.Nil(t, err)
+	if len(datumBytes) == 0 {
+		t.Fatal("expected at least one datum byte slice, got none")
+	}
 	assert.Equal(t, expected, datumBytes[0])
 }
 
