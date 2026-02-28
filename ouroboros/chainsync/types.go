@@ -749,7 +749,7 @@ type OgmiosMetadatumMap struct {
 }
 
 func GetMetadataDatums(datums map[string][]byte) ([][]byte, error) {
-	datumBytes := make([][]byte, 0)
+	datumBytes := make([][]byte, 0, len(datums))
 	for _, datum := range datums {
 		datumBytes = append(datumBytes, datum)
 	}
