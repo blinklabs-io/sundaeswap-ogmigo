@@ -521,6 +521,9 @@ func PointFromV6(p chainsync.Point) *PointV5 {
 		}
 	} else {
 		ps, _ := p.PointStruct()
+		if ps == nil {
+			return nil
+		}
 		bn := uint64(0)
 		if ps.Height != nil {
 			bn = *ps.Height
@@ -1003,8 +1006,12 @@ func ResultNextBlockFromV6(
 		if rnb.Tip.Height != nil {
 			tip.BlockNo = *rnb.Tip.Height
 		}
+		point := PointFromV6(*rnb.Point)
+		if point == nil {
+			return r
+		}
 		r.RollBackward = &RollBackwardV5{
-			Point: *PointFromV6(*rnb.Point),
+			Point: *point,
 			Tip:   tip,
 		}
 	}

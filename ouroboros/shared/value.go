@@ -158,6 +158,9 @@ func Equal(a, b Value) bool {
 }
 
 func (v *Value) AddAsset(coins ...Coin) {
+	if v == nil {
+		return
+	}
 	// As a courtesy, initialize Value if necessary.
 	if *v == nil {
 		*v = Value{}
@@ -166,10 +169,12 @@ func (v *Value) AddAsset(coins ...Coin) {
 	for _, coin := range coins {
 		policy := coin.AssetId.PolicyID()
 		asset := coin.AssetId.AssetName()
-		if _, ok := (*v)[policy]; !ok {
-			(*v)[policy] = map[string]num.Int{}
+		inner, ok := (*v)[policy]
+		if !ok {
+			inner = make(map[string]num.Int)
+			(*v)[policy] = inner
 		}
-		(*v)[policy][asset] = (*v)[policy][asset].Add(coin.Amount)
+		inner[asset] = inner[asset].Add(coin.Amount)
 	}
 }
 
