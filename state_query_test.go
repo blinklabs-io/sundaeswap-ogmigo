@@ -22,8 +22,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/shared"
 )
 
 func TestClient_ChainTip(t *testing.T) {

@@ -25,7 +25,7 @@ import (
 
 	"github.com/dgraph-io/badger/v3"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync"
 )
 
 type Store struct {

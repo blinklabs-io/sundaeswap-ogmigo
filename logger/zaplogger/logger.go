@@ -17,7 +17,7 @@ package zaplogger
 import (
 	"go.uber.org/zap"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6"
+	"github.com/SundaeSwap-finance/ogmigo/v7"
 )
 
 type Logger struct {
