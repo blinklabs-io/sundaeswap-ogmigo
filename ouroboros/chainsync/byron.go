@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Byron block code for Ogmios v6.
+// Byron block code for Ogmios v7.
 // https://github.com/CardanoSolutions/ogmios/blob/d2b1d70ab5e676b5d053817d57ea8220f2b07317/docs/static/api/specification.yaml
 
 package chainsync

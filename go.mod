@@ -1,4 +1,4 @@
-module github.com/SundaeSwap-finance/ogmigo/v6
+module github.com/SundaeSwap-finance/ogmigo/v7
 
 go 1.24.0
 

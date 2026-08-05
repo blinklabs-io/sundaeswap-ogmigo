@@ -20,9 +20,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
-	v5 "github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/v5"
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync"
+	v5 "github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync/v5"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/shared"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
