@@ -4,9 +4,8 @@ go 1.24.0
 
 replace github.com/SundaeSwap-finance/ogmigo/store/badgerstore => ../../store/badgerstore
 
-replace github.com/SundaeSwap-finance/ogmigo/v6 => ../..
-
-require github.com/SundaeSwap-finance/ogmigo/v6 v6.0.0-00010101000000-000000000000
+replace github.com/SundaeSwap-finance/ogmigo/v7 => ../..
+require github.com/SundaeSwap-finance/ogmigo/v7 v7.0.0-00010101000000-000000000000
 
 require (
 	github.com/aws/aws-sdk-go v1.44.197 // indirect

@@ -1,7 +1,7 @@
 package logger
 
 import (
-	ogmigo "github.com/SundaeSwap-finance/ogmigo/v6"
+	ogmigo "github.com/SundaeSwap-finance/ogmigo/v7"
 	"github.com/rs/zerolog"
 )
 

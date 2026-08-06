@@ -3,7 +3,7 @@ module blah
 go 1.24.0
 
 require (
-	github.com/SundaeSwap-finance/ogmigo/v6 v6.0.0-00010101000000-000000000000
+	github.com/SundaeSwap-finance/ogmigo/v7 v7.0.0-00010101000000-000000000000
 	github.com/urfave/cli/v2 v2.27.5
 )
 
@@ -23,4 +23,4 @@ require (
 
 replace github.com/SundaeSwap-finance/ogmigo/store/badgerstore => ../../store/badgerstore
 
-replace github.com/SundaeSwap-finance/ogmigo/v6 => ../..
+replace github.com/SundaeSwap-finance/ogmigo/v7 => ../..

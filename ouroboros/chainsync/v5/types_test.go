@@ -21,7 +21,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync"
 	"github.com/stretchr/testify/assert"
 )
 

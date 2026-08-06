@@ -3,7 +3,7 @@ module github.com/SundaeSwap-finance/ogmigo/store/badgerstore
 go 1.24.0
 
 require (
-	github.com/SundaeSwap-finance/ogmigo/v6 v6.0.0
+	github.com/SundaeSwap-finance/ogmigo/v7 v7.0.0
 	github.com/dgraph-io/badger/v3 v3.2103.2
 )
 
@@ -29,4 +29,4 @@ require (
 	golang.org/x/sys v0.31.0 // indirect
 )
 
-replace github.com/SundaeSwap-finance/ogmigo/v6 => ../..
+replace github.com/SundaeSwap-finance/ogmigo/v7 => ../..

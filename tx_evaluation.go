@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/shared"
 	"github.com/buger/jsonparser"
 )
 
@@ -65,7 +65,7 @@ func (c *Client) evaluateTx(
 
 // EvaluateTx measures the script execution costs of a transaction.
 // https://ogmios.dev/mini-protocols/local-tx-submission/
-// https://github.com/CardanoSolutions/ogmios/blob/v6.0/docs/content/mini-protocols/local-tx-submission.md
+// https://github.com/CardanoSolutions/ogmios/blob/v7.0/docs/content/mini-protocols/local-tx-submission.md
 func (c *Client) EvaluateTx(
 	ctx context.Context,
 	data string,

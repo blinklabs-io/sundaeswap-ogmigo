@@ -20,11 +20,11 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync"
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/num"
-	v5 "github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/chainsync/v5"
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/shared"
-	"github.com/SundaeSwap-finance/ogmigo/v6/ouroboros/statequery"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync/num"
+	v5 "github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/chainsync/v5"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/shared"
+	"github.com/SundaeSwap-finance/ogmigo/v7/ouroboros/statequery"
 	"github.com/btcsuite/btcutil/bech32"
 )
 
