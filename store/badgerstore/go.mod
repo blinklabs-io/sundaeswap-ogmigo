@@ -1,6 +1,6 @@
 module github.com/SundaeSwap-finance/ogmigo/store/badgerstore
 
-go 1.24.0
+go 1.26.10
 
 require (
 	github.com/SundaeSwap-finance/ogmigo/v7 v7.0.0
