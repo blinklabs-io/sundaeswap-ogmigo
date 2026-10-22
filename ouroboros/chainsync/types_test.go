@@ -24,6 +24,7 @@ import (
 	"path/filepath"
 	"reflect"
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/aws/aws-sdk-go/service/dynamodb"
@@ -43,8 +44,11 @@ func TestUnmarshal(t *testing.T) {
 	if err != nil {
 		t.Fatalf("got %v; want nil", err)
 	}
-	decoder := json.NewDecoder(nil)
+	decoder := json.NewDecoder(strings.NewReader(`{"unknown":true}`))
 	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&ResponsePraos{}); err == nil {
+		t.Fatal("expected unknown fields to be rejected")
+	}
 }
 
 func assertStructMatchesSchema(t *testing.T) filepath.WalkFunc {
