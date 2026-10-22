@@ -1,6 +1,6 @@
 module blah
 
-go 1.24.0
+go 1.26.10
 
 replace github.com/SundaeSwap-finance/ogmigo/store/badgerstore => ../../store/badgerstore
 

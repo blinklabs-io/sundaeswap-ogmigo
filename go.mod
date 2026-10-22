@@ -1,6 +1,6 @@
 module github.com/SundaeSwap-finance/ogmigo/v7
 
-go 1.24.0
+go 1.26.10
 
 require (
 	github.com/aws/aws-sdk-go v1.44.197
